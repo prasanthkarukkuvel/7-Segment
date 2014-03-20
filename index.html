@@ -1,0 +1,904 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>7 Segments</title>
+<link href="segment-style.css" rel="stylesheet" type="text/css" />
+<style>
+* {
+	margin: 0;
+	padding: 0
+}
+body {
+	width: 100%;
+	background: #111;
+	-webkit-user-select: none;
+	overflow: hidden;
+	opacity:0;
+}
+.trans {
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.blue {
+	color: #000;
+	cursor: pointer;
+	background: #f4ecad;
+	background: -moz-linear-gradient(top, #f4ecad 0%, #f9e107 6%, #e29e00 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f4ecad), color-stop(6%, #f9e107), color-stop(100%, #e29e00));
+	background: -webkit-linear-gradient(top, #f4ecad 0%, #f9e107 6%, #e29e00 100%);
+	background: -o-linear-gradient(top, #f4ecad 0%, #f9e107 6%, #e29e00 100%);
+	background: -ms-linear-gradient(top, #f4ecad 0%, #f9e107 6%, #e29e00 100%);
+	background: linear-gradient(to bottom, #f4ecad 0%, #f9e107 6%, #e29e00 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4ecad', endColorstr='#e29e00', GradientType=0 );
+}
+.blue:hover {
+	background: #f2d602;
+	background: -moz-linear-gradient(top, #f2d602 1%, #f7ef00 25%, #f2cd00 64%, #edc721 84%, #ead24b 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #f2d602), color-stop(25%, #f7ef00), color-stop(64%, #f2cd00), color-stop(84%, #edc721), color-stop(100%, #ead24b));
+	background: -webkit-linear-gradient(top, #f2d602 1%, #f7ef00 25%, #f2cd00 64%, #edc721 84%, #ead24b 100%);
+	background: -o-linear-gradient(top, #f2d602 1%, #f7ef00 25%, #f2cd00 64%, #edc721 84%, #ead24b 100%);
+	background: -ms-linear-gradient(top, #f2d602 1%, #f7ef00 25%, #f2cd00 64%, #edc721 84%, #ead24b 100%);
+	background: linear-gradient(to bottom, #f2d602 1%, #f7ef00 25%, #f2cd00 64%, #edc721 84%, #ead24b 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2d602', endColorstr='#ead24b', GradientType=0 );
+}
+.blue:active {
+	background: #ce9e02;
+	background: -moz-linear-gradient(top, #ce9e02 3%, #c69800 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(3%, #ce9e02), color-stop(100%, #c69800));
+	background: -webkit-linear-gradient(top, #ce9e02 3%, #c69800 100%);
+	background: -o-linear-gradient(top, #ce9e02 3%, #c69800 100%);
+	background: -ms-linear-gradient(top, #ce9e02 3%, #c69800 100%);
+	background: linear-gradient(to bottom, #ce9e02 3%, #c69800 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce9e02', endColorstr='#c69800', GradientType=0 );
+}
+.white-fixed {
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 0%, #b5b5b5 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #b5b5b5));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #b5b5b5 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #b5b5b5 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #b5b5b5 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #b5b5b5 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#b5b5b5', GradientType=0 );
+}
+.container {
+	width: 950px;
+	height: 500px;
+	margin: auto;
+	margin-top: 50px;
+}
+.inner-container {
+	text-align: center;
+}
+.inner-container > div {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: left;
+}
+.inline-top {
+	display: inline-block;
+	vertical-align: top;
+}
+.control-layout, .settings-layout {
+	top: 30px;
+	position: relative;
+	padding: 10px;
+	color: #fff;
+	font: 15px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	background: #222;
+	border-radius: 5px;
+	margin-left: 10px;
+	border: #292929 thin solid;
+	margin-bottom: 10px;
+	box-shadow: 0 0 1px 1px #090909;
+}
+.controls {
+	width: 325px;
+}
+.color-title {
+	font-size: 20px;
+}
+.color-content {
+	color: #ccc;
+	padding: 7px;
+}
+.color-content-part {
+	margin-top: 5px;
+}
+.color-list-view {
+	margin-left: 10px;
+	padding: 10px;
+	color: #999;
+}
+.color-list-view > div {
+	display: inline-block;
+	vertical-align: middle;
+}
+.color-list-view > .color-values {
+	width: 20px;
+	height: 20px;
+	margin-left: 2px;
+	margin-top: 6px;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.normal-color {
+	background-position: -30px -32px;
+}
+.set-color {
+	background-position: -9px -31px;
+	background-color: #fff
+}
+.selected-color {
+	border: #F3DA02 2px solid;
+}
+.select-color {
+	border: #111 2px solid;
+	cursor: pointer;
+}
+.select-color:hover {
+	border: #fff 2px solid;
+}
+.black-color {
+	background: #111;
+}
+.white-color {
+	background: #fff;
+}
+.color-option {
+	font-size: 14px;
+}
+.color-option > input {
+	margin-left: 5px;
+	position: relative;
+}
+.color-option > input[type=color] {
+	top: 1px;
+}
+.color-option > input[type=range] {
+	top: 5px;
+}
+.sh-value {
+	display: inline-block;
+	font-size: 17px;
+	border-radius: 5px;
+	position: relative;
+	top: -2px;
+	color: #F90;
+	left: 5px;
+}
+.segment-control {
+	width: 545x;
+}
+.timer-controls {
+	padding: 5px;
+	margin: 5px 0 0 10px;
+}
+.timer-controls > div {
+	padding: 6px 12px;
+	color: #000;
+	border-radius: 5px;
+	display: inline-block;
+	border: #111 thin solid;
+}
+.timer-option-select {
+	cursor: pointer;
+}
+.segment-option-control {
+	width: 900px;
+	padding: 10px;
+}
+.segment-label {
+	display: inline-block;
+	width: 900px;
+	font: 20px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	margin-top: 10px;
+	display: none;
+}
+.segment-label > div {
+	width: 150px;
+	text-align: center;
+	padding: 5px 10px;
+	display: inline-block;
+	background: #ccc;
+	border: #000 thin solid;
+	box-shadow: inset 0 0 10px 2px #fff;
+}
+.segment-label > div:nth-child(1) {
+	margin-left: 45px;
+}
+.segment-label > div:nth-child(2) {
+	margin-left: 120px;
+}
+.segment-label > div:nth-child(3) {
+	margin-left: 120px;
+}
+.arrow {
+	width: 0;
+	height: 0;
+	border-width: 20px;
+	border-style: solid;
+	border-color: transparent;
+	margin: auto;
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 42px;
+	margin-right: 42px;
+}
+.arrow-up {
+	border-bottom-color: #ccc;
+}
+.arrow-down {
+	border-top-color: #ccc;
+}
+.arrow-up:hover {
+	border-bottom-color: #FF9900;
+}
+.arrow-down:hover {
+	border-top-color: #FF9900;
+}
+.arrow-up:active {
+	border-bottom-color: #666;
+}
+.arrow-down:active {
+	border-top-color: #666;
+}
+.arrow-layout {
+	margin-left: 7px;
+}
+.margin-left10 {
+}
+.margin-top10 {
+	margin-top: 30px;
+}
+.arrow-holder {
+	width: 252px;
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+}
+.arrow-holder:nth-child(2) {
+	margin-left: 42px;
+}
+.arrow-holder:nth-child(3) {
+	margin-left: 42px;
+}
+.segment-option-control {
+	display: none;
+}
+.alarm-section {
+	width: 720px;
+	margin-left: 70px;
+	padding: 10px;
+	font: 15px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: #fff;
+	display: none;
+}
+.alarm-section > div {
+	display: inline-block;
+	vertical-align: middle;
+}
+.alarm-title {
+	font-size: 18px;
+	margin-left: 10px;
+}
+.alarm-controls {
+	position: relative;
+	float: right;
+	right: 5px;
+	top: 6px;
+}
+.alarm-controls > div {
+	display: inline-block;
+	padding: 7px 10px;
+	box-shadow: 0 0 1px 1px #000;
+	border-radius: 5px;
+	margin-left: 10px;
+	font-size: 16px;
+}
+.active-color {
+	background: #bece42;
+	background: -moz-linear-gradient(top, #bece42 1%, #8baa00 7%, #546d00 99%, #253a00 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #bece42), color-stop(7%, #8baa00), color-stop(99%, #546d00), color-stop(100%, #253a00));
+	background: -webkit-linear-gradient(top, #bece42 1%, #8baa00 7%, #546d00 99%, #253a00 100%);
+	background: -o-linear-gradient(top, #bece42 1%, #8baa00 7%, #546d00 99%, #253a00 100%);
+	background: -ms-linear-gradient(top, #bece42 1%, #8baa00 7%, #546d00 99%, #253a00 100%);
+	background: linear-gradient(to bottom, #bece42 1%, #8baa00 7%, #546d00 99%, #253a00 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bece42', endColorstr='#253a00', GradientType=0 );
+box-shadow:0 0 1px 1px #000;
+border:#647F00 thin solid;
+}
+.running-color{
+	background: #efaf00;
+background: -moz-linear-gradient(top,  #efaf00 2%, #ef8b00 7%, #a32b00 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(2%,#efaf00), color-stop(7%,#ef8b00), color-stop(100%,#a32b00));
+background: -webkit-linear-gradient(top,  #efaf00 2%,#ef8b00 7%,#a32b00 100%);
+background: -o-linear-gradient(top,  #efaf00 2%,#ef8b00 7%,#a32b00 100%);
+background: -ms-linear-gradient(top,  #efaf00 2%,#ef8b00 7%,#a32b00 100%);
+background: linear-gradient(to bottom,  #efaf00 2%,#ef8b00 7%,#a32b00 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efaf00', endColorstr='#a32b00',GradientType=0 );
+
+box-shadow:0 0 1px 1px #000;
+border:#CE6100 thin solid;
+
+}
+.inline-middle {
+	display: inline-block;
+	vertical-align: middle;
+}
+.alarm-start {
+	font-size: 17px;
+	display:none;
+	
+}
+.active-color > .control-layout{
+	border:#759200 thin solid;
+}
+.running-color > .control-layout{
+	border:#CE6100 thin solid;
+}
+.alarm-start > .control-layout {
+
+	margin-bottom:0;
+	padding:6px 10px;
+	top:0;
+	position:relative;
+	box-shadow:inset  0 0 2px 1px #111;
+	
+	
+}
+.button-cls{
+	padding:6px 10px;
+	border-radius:5px;
+}
+.alarm-info{
+	text-align:center;
+}
+
+.alarm-info > div:first-child{
+	font-size:13px;
+	color:#ccc;
+	padding:1px;
+}
+.alarm-info > div:last-child{
+	
+	color:#fff;
+	padding:2px;
+}
+.alarm-stop{
+	margin-left:30px;
+}
+</style>
+</head>
+
+<body>
+<!-- Add BACKGROUND styles in container for all segments-->
+<div class="container segment-gradient-blue split-run">
+  <div class="segment-option-control">
+    <div class="arrow-button-layout">
+      <div class="arrow-layout">
+        <div class="arrow-holder">
+          <div class="arrow arrow-up" data-segment="4" data-value="0" data-operation="0" data-max="1"></div>
+          <div class="arrow arrow-up" id="seg5_m" data-segment="5" data-value="0" data-operation="0" data-max="9"></div>
+        </div>
+        <div class="arrow-holder">
+          <div class="arrow arrow-up" data-segment="2" data-value="0" data-operation="0" data-max="5"></div>
+          <div class="arrow arrow-up" data-segment="3" data-value="0" data-operation="0" data-max="9"></div>
+        </div>
+        <div class="arrow-holder">
+          <div class="arrow arrow-up" data-segment="0" data-value="0" data-operation="0" data-max="5"></div>
+          <div class="arrow arrow-up" data-segment="1" data-value="0" data-operation="0" data-max="9"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="inner-container"> 
+    <!-- Add BACKGROUND styles in warp for all particular segments-->
+    
+    <div class="warp  hr-a">
+      <div class="vertical-holder">
+        <div class="segment top off top-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment top left off top-align top-left-off"></div>
+        <div class="segment top right off top-align right-align top-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment middle off middle-align middle-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment bottom left off bottom-left-off"></div>
+        <div class="segment bottom right off right-align bottom-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment bottom off bottom-align bottom-off"></div>
+      </div>
+    </div>
+    <div class="warp  hr-b">
+      <div class="vertical-holder">
+        <div class="segment top off top-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment top left off top-align top-left-off"></div>
+        <div class="segment top right off top-align right-align top-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment middle off middle-align middle-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment bottom left off bottom-left-off"></div>
+        <div class="segment bottom right off right-align bottom-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment bottom bottom-align off bottom-off"></div>
+      </div>
+    </div>
+    <div class="split">
+      <div></div>
+      <div></div>
+    </div>
+    <div class="warp  min-a">
+      <div class="vertical-holder">
+        <div class="segment top off top-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment top left off top-align top-left-off"></div>
+        <div class="segment top right off top-align right-align top-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment middle off middle-align middle-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment bottom off left bottom-left-off"></div>
+        <div class="segment bottom off right right-align bottom-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment bottom off bottom-align bottom-off"></div>
+      </div>
+    </div>
+    <div class="warp  min-b">
+      <div class="vertical-holder">
+        <div class="segment top off top-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment top left off top-align top-left-off"></div>
+        <div class="segment top right off top-align right-align top-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment middle off middle-align middle-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment bottom left off bottom-left-off"></div>
+        <div class="segment bottom right off right-align bottom-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment bottom bottom-align off bottom-off"></div>
+      </div>
+    </div>
+    <div class="split">
+      <div></div>
+      <div></div>
+    </div>
+    <div class="warp  sec-a">
+      <div class="vertical-holder">
+        <div class="segment top off top-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment top left off top-align top-left-off"></div>
+        <div class="segment top right off top-align right-align top-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment middle off middle-align middle-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment bottom left off bottom-left-off"></div>
+        <div class="segment bottom right off right-align bottom-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment bottom off bottom-align bottom-off"></div>
+      </div>
+    </div>
+    <div class="warp  sec-b">
+      <div class="vertical-holder">
+        <div class="segment top off top-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment top left off top-align top-left-off"></div>
+        <div class="segment top right off top-align right-align top-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment middle off middle-align middle-off"></div>
+      </div>
+      <div class="horizontal-holder">
+        <div class="segment bottom left off bottom-left-off"></div>
+        <div class="segment bottom right off right-align bottom-right-off"></div>
+      </div>
+      <div class="vertical-holder">
+        <div class="segment bottom bottom-align off bottom-off"></div>
+      </div>
+    </div>
+    <div id="session" class="black-emboss">MM</div>
+  </div>
+  <div class="segment-option-control">
+    <div class="arrow-button-layout">
+      <div class="arrow-layout">
+        <div class="arrow-holder margin-top10">
+          <div class="arrow arrow-down"  data-segment="4" data-value="0" data-operation="1" data-max="1"></div>
+          <div class="arrow arrow-down" id="seg5_n" data-segment="5" data-value="0" data-operation="1" data-max="9"></div>
+        </div>
+        <div class="arrow-holder margin-top10">
+          <div class="arrow arrow-down" data-segment="2" data-value="0" data-operation="1" data-max="5"></div>
+          <div class="arrow arrow-down" data-segment="3" data-value="0" data-operation="1" data-max="9"></div>
+        </div>
+        <div class="arrow-holder margin-top10">
+          <div class="arrow arrow-down" data-segment="0" data-value="0" data-operation="1" data-max="5"></div>
+          <div class="arrow arrow-down" data-segment="1" data-value="0" data-operation="1" data-max="9"></div>
+        </div>
+      </div>
+    </div>
+    <div class="segment-label">
+      <div>Hours</div>
+      <div>Minutes</div>
+      <div>Seconds</div>
+    </div>
+  </div>
+  <div class="alarm-section settings-layout">
+    <div><img src="imgs/alarm.png" width="45" height="45" alt="" /></div>
+    <div class="alarm-title">Set the time for the alarm</div>
+    <div class="alarm-controls">
+      <div class="blue" id="alarm-start-t">Set Alarm</div>
+      <div class="blue" id="alarm-cancle">Cancel</div>
+    </div>
+  </div>
+  <div id="time-segment-control">
+    <div class="control-layout controls inline-top">
+      <div class="color-holder">
+        <div class="color-title">Color theme</div>
+        <div class="color-content">
+          <div class="color-content-part">
+            <div>Background color</div>
+            <div class="color-list-view">
+              <div class="option-select selected-color black-color color-values" data-value="#111"></div>
+              <div class="option-select select-color white-color color-values" data-value="#fff"></div>
+              <div class="color-option"> <span>Choose a color</span>
+                <input type="color" name="bg-selected" id="color-select-input"/>
+              </div>
+            </div>
+          </div>
+          <div class="color-content-part">
+            <div>Shadow intensity</div>
+            <div class="color-list-view">
+              <div class="color-option"><span>Choose intensity</span>
+                <input type="range" name="sh-selected" id="shadow-select-input"  min="0" max="10" value="5" />
+                <span class="sh-value">5</span> </div>
+            </div>
+          </div>
+          <div class="color-content-part">
+            <div>Segment color patterns</div>
+            <div class="color-list-view">
+              <div class="option-select-t selected-color normal-color sgb color-values" data-value="segment-gradient-blue"></div>
+              <div class="option-select-t select-color normal-color sgr color-values" data-value="segment-gradient-red"></div>
+              <div class="option-select-t select-color normal-color sgg color-values" data-value="segment-gradient-green"></div>
+              <div class="option-select-t select-color normal-color sgo color-values" data-value="segment-gradient-orange"></div>
+              <div class="option-select-t select-color set-color sgwb color-values" data-value="segment-gradient-white-blue"></div>
+              <div class="option-select-t select-color set-color sgwr color-values" data-value="segment-gradient-white-red"></div>
+              <div class="option-select-t select-color set-color sgo color-values" data-value="segment-gradient-white-orange"></div>
+              <div class="option-select-t select-color normal-color slb color-values" data-value="segment-light-blue"></div>
+              <div class="option-select-t select-color normal-color slr color-values" data-value="segment-light-red"></div>
+              <div class="option-select-t select-color normal-color slg color-values" data-value="segment-light-green"></div>
+              <div class="option-select-t select-color normal-color slo color-values" data-value="segment-light-orange"></div>
+              <div class="option-select-t select-color normal-color snm color-values" data-value="segment-neo-magenta"></div>
+              <div class="option-select-t select-color normal-color snr color-values" data-value="segment-neo-red"></div>
+              <div class="option-select-t select-color normal-color sng color-values" data-value="segment-neo-green"></div>
+              <div class="option-select-t select-color normal-color sno color-values" data-value="segment-neo-orange"></div>
+              <div class="option-select-t select-color set-color snwm color-values" data-value="segment-neo-white-magenta"></div>
+              <div class="option-select-t select-color set-color snwo color-values" data-value="segment-neo-white-orange"></div>
+              <div class="option-select-t select-color set-color snwb color-values" data-value="segment-neo-white-black"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="inline-top">
+      <div class="control-layout segment-control active-color alarm-start trans">
+        <div class="inline-middle"><img src="imgs/alarm.png" width="45" height="45" alt="" /></div>
+        <div class="inline-middle" style="width:200px;overflow:hidden;text-indent:5px;" id="alarm-message">Your alarm is running..</div>
+        <div class="control-layout inline-middle">
+          <div class="inline-middle alarm-info">
+            <div>Alarm time</div>
+            <div id="set-alarm-time-t">00:00:00 MM</div>
+          </div>
+          <div class="inline-middle alarm-stop">
+            <div class="blue button-cls" id="clear_alarm_t" >Stop alarm</div>
+          </div>
+        </div>
+      </div>
+      <div class="control-layout segment-control">
+        <div class="color-title">Timer options</div>
+        <div class="timer-controls ">
+          <div class="option-select-c white-fixed trans timer-option-selected">Current time</div>
+          <div class="option-select-c blue trans timer-option-select" data-type="alarm">Alarm clock</div>
+          <div class="blue trans timer-option-select" style="background:#333">Countdown timer</div>
+          <div class="blue trans timer-option-select" style="background:#333">Lap timer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="str-time">
+<input type="hidden" id="seg4" value="0" onchange="set_seg4_max(this.value)"/>
+<input type="hidden" id="seg5" value="0" />
+<input type="hidden" id="seg2" value="0" />
+<input type="hidden" id="seg3" value="0" />
+<input type="hidden" id="seg0" value="0" />
+<input type="hidden" id="seg1" value="0" />
+<audio preload="auto" id="alarm-tone" loop>
+  <source src="tone/alarm.ogg" type="audio/ogg" />
+  <source src="tone/alarm.mp3" type="audio/mpeg" />
+</audio>
+</div>
+
+<script type="text/javascript" src="scripts/jquery-2.0.2.min.js"></script> 
+<script type="text/javascript" src="scripts/jquery-ui.js"></script> 
+<script type="text/javascript" src="scripts/jquery.easing.min.js"></script> 
+<script>
+$("#clear_alarm_t").click(function (e) {
+    clear_alarm()
+});
+
+function set_alarm_message() {
+    alarm.start = false
+    $(".alarm-start").removeClass("active-color").addClass("running-color");
+    $("#alarm-message").text("Your time is up.. (( ))");
+    $(".alarm-start img").attr("src", "imgs/alarm-rings.png");
+    document.getElementById('alarm-tone').play();
+}
+
+function reset_segment() {
+    $("#str-time > input").each(function (index, element) {
+        $(element).val(0)
+    });
+    set_seg4_max(0)
+}
+
+function clear_alarm() {
+    alarm.atime = null
+    alarm.time = null
+    alarm.start = false
+    $(".alarm-start").fadeOut(50);
+    document.getElementById('alarm-tone').pause();
+    $(".alarm-start").removeClass("running-color").addClass("active-color");
+    $("#alarm-message").text("Your alarm is running..");
+    $(".alarm-start img").attr("src", "imgs/alarm.png");
+}
+
+function reset_stage() {
+    var c = $(".option-select-t.selected-color").attr("data-value");
+    var cl = $(".option-select.white-color").hasClass("selected-color") ? "#fff" : $(".option-select.black-color").hasClass("selected-color") ? "#111" : $("#color-select-input").val()
+    $("body").animate({
+        "background-color": cl
+    }, 500);
+    $(".container").removeClass("segment-gradient-blue").addClass(c).addClass("split-run");
+    $("#time-segment-control").delay(100).show("drop", {
+        "direction": "down"
+    }, 500, "easeInOutBounce");
+    $(".alarm-section,.segment-option-control").hide("drop", {
+        "direction": "down"
+    }, 300, "easeInOutBounce");
+    $("#session").removeClass("blue").addClass("black-emboss");
+    set_time();
+    t = setInterval(set_time, d)
+    reset_segment();
+}
+$("#alarm-start-t").click(function (e) {
+    a = new Array;
+    $("#str-time > input").each(function (index, element) {
+        a[index] = $(element).val()
+    });
+    if (a[0] == "0" && a[1] == "0") {
+        if (!$(".hr-a").hasClass("segment-gradient-red") && !$(".hr-b").hasClass("segment-gradient-red")) $(".hr-a,.hr-b").addClass("segment-gradient-red");
+        return false
+    }
+    if ($(".hr-a").hasClass("segment-gradient-red") && $(".hr-b").hasClass("segment-gradient-red")) $(".hr-a,.hr-b").removeClass("segment-gradient-red");
+    alarm.time = a.join("").match(/.{1,2}/g).join(":") + " "+$("#session").text();
+    $("#set-alarm-time-t").text(alarm.time)
+    alarm.atime = a.join("") + $("#session").text()
+    alarm.start = true
+    $(".alarm-start").fadeIn(200)
+    reset_stage();
+});
+$("#alarm-cancle").click(function (e) {
+    if ($(".hr-a").hasClass("segment-gradient-red") && $(".hr-b").hasClass("segment-gradient-red")) $(".hr-a,.hr-b").removeClass("segment-gradient-red");
+    if (!alarm.start) {
+        clear_alarm()
+    }
+    reset_stage();
+});
+
+function set_seg4_max(a) {
+    if (parseInt(a) > 0) {
+        $("#seg5_m").attr("data-max", 2);
+        $("#seg5_n").attr("data-max", 2);
+        if (parseInt($("#seg5").val()) > 2) {
+            $("#seg5").val(2);
+            set_segment(time_segment[2], segment[5]);
+        }
+    } else {
+        $("#seg5_m").attr("data-max", 9);
+        $("#seg5_n").attr("data-max", 9);
+    }
+}
+$("#session").click(function (e) {
+    if ($(this).hasClass("blue")) $(this).text(function () {
+        return $(this).text() == "AM" ? "PM" : "AM"
+    })
+});
+$(".arrow").click(function (e) {
+    if ($(".hr-a").hasClass("segment-gradient-red") && $(".hr-b").hasClass("segment-gradient-red")) $(".hr-a,.hr-b").removeClass("segment-gradient-red");
+    v = parseInt($("#seg" + $(this).attr("data-segment")).val());
+    m = parseInt($(this).attr("data-max"));
+    a = parseInt($(this).attr("data-operation")) ? v < m ? v + 1 : 0 : v == 0 ? m : v - 1
+    $("#seg" + $(this).attr("data-segment")).val(a).trigger('change');
+    set_segment(time_segment[a], segment[parseInt($(this).attr("data-segment"))]);
+});
+$(".option-select-c").click(function (e) {
+    document.getElementById('alarm-tone').pause();
+    if ($(this).hasClass("option-select-c")) {
+        $("#time-segment-control").hide("drop", {
+            "direction": "down"
+        }, 400, "easeInOutBounce");
+        $(".segment-option-control").show("drop", {
+            "direction": "down"
+        }, 400, "easeInOutElastic");
+        $("#session").removeClass("black-emboss").addClass("blue");
+        $(classSeg).each(function (index, element) {
+            set_segment(time_segment[0], segment[index])
+        });
+        clearInterval(t)
+        $(".container").removeClass("split-run").removeClass($(".option-select-t.selected-color").attr("data-value")).addClass("segment-gradient-blue");
+        $("body").animate({
+            "background-color": "#111"
+        }, 200);
+        if ($(this).attr("data-type") == "alarm") {
+            $(".alarm-section").show("drop", {
+                "direction": "down"
+            }, 500, "easeInOutElastic");
+        }
+    }
+});
+$(".option-select").click(function (e) {
+    if ($(this).hasClass("select-color")) {
+        $(this).siblings(".selected-color").removeClass("selected-color").addClass("select-color");
+        $("body").animate({
+            "background-color": $(this).attr("data-value")
+        }, 500);
+        $(this).removeClass("select-color").addClass("selected-color");
+        $("#color-select-input").val($(this).attr("data-value"))
+    }
+});
+$(".option-select-t").click(function (e) {
+    var a = $(this).siblings(".selected-color").attr("data-value");
+    if ($(this).hasClass("select-color")) {
+        if ($(this).hasClass("set-color")) {
+            $("body").animate({
+                "background-color": "#fff"
+            }, 500);
+            $(".option-select").removeClass("selected-color").addClass("select-color");
+            $(".white-color").removeClass("select-color").addClass("selected-color")
+        }
+        $(this).siblings(".selected-color").removeClass("selected-color").addClass("select-color");
+        $(".container").removeClass(a).addClass($(this).attr("data-value"));
+        $(this).removeClass("select-color").addClass("selected-color")
+    }
+});
+$("#shadow-select-input").change(function (e) {
+    $(".off").animate({
+        "opacity": (parseInt($(this).val()) / 10)
+    }, 100);
+    $(".sh-value").text($(this).val())
+});
+$("#color-select-input").change(function (e) {
+    $("body").animate({
+        "background-color": $(this).val()
+    }, 500);
+    $(".option-select").removeClass("selected-color").addClass("select-color")
+});
+var segment = new Array();
+var classSeg = ["sec-a", "sec-b", "min-a", "min-b", "hr-a", "hr-b"]
+$(classSeg).each(function (index, element) {
+    segment[index] = $(".warp." + element + " .segment").get();
+});
+
+function set_time() {
+    var a = new Date();
+    var b = ("0" + a.getSeconds()).slice(-2);
+    var c = ("0" + a.getMinutes()).slice(-2);
+    var d = a.getHours();
+    var h = d == 0 ? 12 : d >= 12 ? d - 12 : d;
+    var s = d != 0 ? d >= 12 ? "PM" : "AM" : "AM"
+    $("#session").text(s);
+    d = ("0" + h).slice(-2);
+    if (alarm.start) if ((d + c + b + s) == alarm.atime) set_alarm_message();
+    set_segment(time_segment[parseInt(b.slice(0, 1))], segment[0]);
+    set_segment(time_segment[parseInt(b.slice(1))], segment[1]);
+    set_segment(time_segment[parseInt(c.slice(0, 1))], segment[2]);
+    set_segment(time_segment[parseInt(c.slice(1))], segment[3]);
+    set_segment(time_segment[parseInt(d.slice(0, 1))], segment[4]);
+    set_segment(time_segment[parseInt(d.slice(1))], segment[5])
+}
+
+function set_segment(p, c) {
+    $(p).each(function (a, b) {
+        m = $(c[a]).hasClass("top") ? "top" : $(c[a]).hasClass("middle") ? "middle" : "bottom";
+        n = $(c[a]).hasClass("left") ? "-left" : $(c[a]).hasClass("right") ? "-right" : "";
+        if ($(c[a]).hasClass(b ? m + n + "-off" : m + n + "-light")) {
+            $(c[a]).removeClass(b ? m + n + "-off" : m + n + "-light").addClass(b ? m + n + "-light" : m + n + "-off");
+            $(c[a]).removeClass(b ? "no-class" : "light").addClass(b ? "light" : "no-class")
+        }
+    })
+}
+var time_segment = new Array();
+time_segment[0] = [1, 1, 1, 0, 1, 1, 1];
+time_segment[1] = [0, 0, 1, 0, 0, 1, 0];
+time_segment[2] = [1, 0, 1, 1, 1, 0, 1];
+time_segment[3] = [1, 0, 1, 1, 0, 1, 1];
+time_segment[4] = [0, 1, 1, 1, 0, 1, 0];
+time_segment[5] = [1, 1, 0, 1, 0, 1, 1];
+time_segment[6] = [0, 1, 0, 1, 1, 1, 1];
+time_segment[7] = [1, 0, 1, 0, 0, 1, 0];
+time_segment[8] = [1, 1, 1, 1, 1, 1, 1];
+time_segment[9] = [1, 1, 1, 1, 0, 1, 0];
+var i = 0;
+var j = 0;
+var t = null;
+var d = 1000
+var alarm = {
+    time: null,
+    atime: null,
+    start: false
+}
+$(function () {
+    (function pulse() {
+        $('.split > div').delay(400).fadeOut(200).delay(200).fadeIn(200, pulse)
+    })()
+});
+$(function () {
+    (function pulse() {
+        $('.alarm-start img').delay(300).animate({
+            "opacity": "0.3"
+        }, 250).delay(200).animate({
+            "opacity": "1"
+        }, 250, pulse)
+    })()
+});
+
+function pause() {
+    clearInterval(t)
+}
+$(window).focus(function () {
+    pause();
+    if ($(".container").hasClass("split-run")) t = setInterval(set_time, d)
+});
+$(window).load(function () {
+    $("body").animate({
+        "opacity": "1"
+    }, 200)
+    pause();
+    set_time();
+    t = setInterval(set_time, d)
+});
+$(window).blur(function () {	
+	if(!alarm.start)
+   	 pause()
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+@charset "utf-8";
+/* CSS Document */
+.warp {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+.warp:first-child {
+	margin-left: 0
+}
+.split {
+	position: relative;
+	margin-left: 10px;
+	top: 10px;
+	width: 15px;
+	right: 3px;
+}
+.split div {
+	width: 15px;
+	height: 15px;
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 23%, #d1d1d1 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(23%, #f6f6f6), color-stop(100%, #d1d1d1));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 23%, #d1d1d1 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 23%, #d1d1d1 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 23%, #d1d1d1 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 23%, #d1d1d1 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d1d1d1', GradientType=0 );
+	margin-top: 10px;
+	border-radius: 15px;
+	border: #000 5px solid;
+	box-shadow: 0 0 1px 1px #222222;
+}
+.vertical-holder, .horizontal-holder {
+	width: 110px;
+}
+.segment {
+	position: relative;
+	background: no-repeat;
+	background-color: #111;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.vertical-holder {
+	height: 20px;
+}
+.horizontal-holder {
+	height: 84px;
+}
+.vertical-holder > .segment, .horizontal-holder > .segment {
+	display: inline-block;
+}
+.vertical-holder > .segment {
+	width: 121px;
+	height: 21px;
+}
+.horizontal-holder > .segment {
+	width: 20px;
+	height: 122px;
+}
+.horizontal-holder > .top-align {
+	top: -18px;
+}
+.horizontal-holder > .right-align {
+	left: 78px;
+}
+.vertical-holder > .middle-align {
+	top: 8px;
+	left: 10px;
+}
+.vertical-holder > .bottom-align {
+	top: 19px;
+	left: 1px
+}
+/* Here you can specify the default shadow intensity value*/
+.off {
+	opacity: 0.5
+}
+.light {
+	opacity: 1 !important;
+}
+.black-emboss{
+	background: #757575;
+	background: -moz-linear-gradient(top, #757575 0%, #2d2d2d 3%, #161616 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #757575), color-stop(3%, #2d2d2d), color-stop(100%, #161616));
+	background: -webkit-linear-gradient(top, #757575 0%, #2d2d2d 3%, #161616 100%);
+	background: -o-linear-gradient(top, #757575 0%, #2d2d2d 3%, #161616 100%);
+	background: -ms-linear-gradient(top, #757575 0%, #2d2d2d 3%, #161616 100%);
+	background: linear-gradient(to bottom, #757575 0%, #2d2d2d 3%, #161616 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#757575', endColorstr='#161616', GradientType=0 );
+	border: #222 thin solid;
+	box-shadow: 0 0 1px 1px #000;
+	border-radius: 5px;
+		color: #fff;
+}
+#session {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 30px;
+	padding: 5px 7px;
+	
+	width:47px;
+	text-align:center;
+	letter-spacing: 1px;
+	position: relative;
+	margin-left: 10px;
+	top: 110px;
+}
+/* BACKGROUNDS - Light, Gradient and Neon Styles*/
+/*  Gradient Styles */
+.segment-gradient-blue .segment, .sgb {
+	background: url('imgs/segment-gra-blue.png');
+}
+.segment-gradient-green .segment, .sgg {
+	background: url('imgs/segment-gra-green.png');
+}
+.segment-gradient-orange .segment, .sgo {
+	background: url('imgs/segment-gra-orange.png');
+}
+.segment-gradient-red .segment, .sgr {
+	background: url('imgs/segment-gra-red.png');
+}
+/*  Gradient Styles for White Backgrounds */
+.segment-gradient-white-blue .segment, .sgwb {
+	background: url('imgs/segment-gra-white-blue.png');
+}
+.segment-gradient-white-orange .segment, .sgwo {
+	background: url('imgs/segment-gra-white-orange.png');
+}
+.segment-gradient-white-red .segment, .sgwr {
+	background: url('imgs/segment-gra-white-red.png');
+}
+/*  Light Styles */
+.segment-light-blue .segment, .slb {
+	background: url('imgs/segment-light-blue.png');
+}
+.segment-light-orange .segment, .slo {
+	background: url('imgs/segment-light-orange.png');
+}
+.segment-light-green .segment, .slg {
+	background: url('imgs/segment-light-green.png');
+}
+.segment-light-red .segment, .slr {
+	background: url('imgs/segment-light-red.png');
+}
+/*  Neon Styles */
+.segment-neo-red .segment, .snr {
+	background: url('imgs/segment-neo-red.png');
+}
+.segment-neo-magenta .segment, .snm {
+	background: url('imgs/segment-neo-magenta.png');
+}
+.segment-neo-orange .segment, .sno {
+	background: url('imgs/segment-neo-orange.png');
+}
+.segment-neo-green .segment, .sng {
+	background: url('imgs/segment-neo-green.png');
+}
+/*  Neon Styles for White Backgrounds*/
+
+.segment-neo-white-magenta .segment, .snwm {
+	background: url('imgs/segment-neo-white-magenta.png');
+}
+.segment-neo-white-orange .segment, .snwo {
+	background: url('imgs/segment-neo-white-orange.png');
+}
+.segment-neo-white-black .segment, .snwb {
+	background: url('imgs/segment-neo-white-black.png');
+}
+/* Background positions relative to background images*/
+.vertical-holder > .top-off {
+	background-position: -7px -82px;
+}
+.vertical-holder > .middle-off {
+	background-position: -18px -107px;
+}
+.vertical-holder > .bottom-off {
+	background-position: -8px -6px;
+}
+.vertical-holder > .top-light {
+	background-position: -7px -58px;
+}
+.vertical-holder > .middle-light {
+	background-position: -18px -135px;
+}
+.vertical-holder > .bottom-light {
+	background-position: -8px -32px;
+}
+.horizontal-holder > .top-left-off {
+	background-position: -104px -297px;
+}
+.horizontal-holder > .top-right-off {
+	background-position: -8px -297px;
+}
+.horizontal-holder > .bottom-left-off {
+	background-position: -104px -166px;
+}
+.horizontal-holder > .bottom-right-off {
+	background-position: -8px -166px;
+}
+.horizontal-holder > .top-left-light {
+	background-position: -74px -297px;
+}
+.horizontal-holder > .top-right-light {
+	background-position: -36px -297px;
+}
+.horizontal-holder > .bottom-left-light {
+	background-position: -73px -166px;
+}
+.horizontal-holder > .bottom-right-light {
+	background-position: -36px -166px;
+}
